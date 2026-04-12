@@ -1,0 +1,127 @@
+'''
+HIT137 - Group Assignment 2
+
+Question 1: This program reads text from a file named raw_text.txt and encrypts its contents using a custom encryption method.The encryption 
+depends on whether characters are lowercase or uppercase and their position in the alphabet. Two user inputs, shift1 and shift2, are used to 
+determine how much each character is shifted. The encrypted result is then saved in a new file called encrypted_text.txt.
+
+Group Name: DAN/EXT 26
+Group Members:
+- Adarsh Padhya - S401743
+- Aaditya Kulkarni - S403124
+- Aaron Menezes- S401432
+- Krupa Maria Salim - S398540
+
+Program Description: This Python program performs file-based text encryption using a rule-based shifting technique. It first takes two integer 
+inputs (shift1 and shift2) from the user. The program reads the content of raw_text.txt and processes each character individually.
+
+For lowercase letters:
+
+Characters from 'a' to 'm' are shifted forward by shift1 * shift2
+Characters from 'n' to 'z' are shifted backward by shift1 + shift2
+
+For uppercase letters:
+
+Characters from 'A' to 'M' are shifted backward by shift1
+Characters from 'N' to 'Z' are shifted forward by shift2²
+
+All other characters such as spaces, numbers, and symbols remain unchanged. The encrypted text is written to encrypted_text.txt. The program uses a
+function-based approach for better structure and readability.
+
+'''
+
+#Code begins
+
+
+#Take shift values from user
+shift1 = int(input("Enter shift1: "))
+shift2 = int(input("Enter shift2: "))
+
+
+#Read the content of the input file
+with open("raw_text.txt", "r") as file:
+    text = file.read()
+
+
+#Function to encrypt the given text
+def encrypt(text, shift1, shift2):
+
+    #store final encrypted result
+    encrypted_text = ""
+
+    #Loop through each character in the text
+    for char in text:
+
+        #Check if character is lowercase (a-z)
+        if char.islower():
+
+            #If character is in first half (a-m)
+            if 'a' <= char <= 'm':
+
+                #calculate forward shift
+                shift = shift1 * shift2
+                #convert letter to position (0-25)
+                pos = ord(char) - ord('a')
+                #apply shift and wrap around
+                pos = (pos + shift) % 26
+                #convert back to letter
+                new_char = chr(pos + ord('a'))
+
+            #If character is in second half (n-z)
+            else:
+
+                #calculate backward shift
+                shift = shift1 + shift2
+                #convert letter to position (0-25)
+                pos = ord(char) - ord('a')
+                #shift backward and wrap
+                pos = (pos - shift) % 26
+                #convert back to letter
+                new_char = chr(pos + ord('a'))
+
+        #Check if character is uppercase (A-Z)
+        elif char.isupper():
+
+            #If character is in first half (A-M)
+            if 'A' <= char <= 'M':
+
+                #backward shift
+                shift = shift1
+                pos = ord(char) - ord('A')
+                pos = (pos - shift) % 26
+                new_char = chr(pos + ord('A'))
+            
+            #If character is in second half (N-Z)
+            else:
+
+                #forward shift (square of shift2)
+                shift = shift2 ** 2
+                pos = ord(char) - ord('A')
+                pos = (pos + shift) % 26
+                new_char = chr(pos + ord('A'))
+
+        #If character is not a letter (space, number, symbol)
+        else:
+
+            #keep it unchanged
+            new_char = char  
+
+        #Add the encrypted character to result
+        encrypted_text += new_char
+
+
+    #Return the final encrypted text
+    return encrypted_text
+
+
+#Call the encryption function
+encrypted_text = encrypt(text, shift1, shift2)
+
+
+#Write the encrypted text to a new file
+with open("encrypted_text.txt", "w") as file:
+    file.write(encrypted_text)
+
+
+#Print confirmation message
+print("Encryption completed! Check encrypted_text.txt")
