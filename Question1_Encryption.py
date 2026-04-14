@@ -125,3 +125,9 @@ with open("encrypted_text.txt", "w") as file:
 
 #Print confirmation message
 print("Encryption completed! Check encrypted_text.txt")
+
+def decrypt(text, shift1, shift2):
+
+    decrypted_text = ""
+
+    for char in text:
