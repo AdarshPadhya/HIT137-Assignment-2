@@ -192,3 +192,21 @@ with open("decrypted_text.txt", "w") as file:
     file.write(decrypted_text)
 
 print("Decryption completed! Check decrypted_text.txt")
+
+def verify():
+
+    # read the original file
+    with open("raw_text.txt", "r") as file:
+        original = file.read()
+
+    # read the decrypted file
+    with open("decrypted_text.txt", "r") as file:
+        decrypted = file.read()
+
+    # compare both contents
+    if original == decrypted:
+        print("Decryption was Successful! Both the files are matching.")
+    else:
+        print("Decryption has Failed! Files are not the same.")
+
+verify()
