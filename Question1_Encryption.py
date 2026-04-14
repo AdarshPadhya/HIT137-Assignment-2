@@ -179,3 +179,16 @@ def decrypt(text, shift1, shift2):
 
     # return the full decrypted string
     return decrypted_text
+
+# open the encrypted file and read its content
+with open("encrypted_text.txt", "r") as file:
+    encrypted_data = file.read()
+
+# decrypt the content of the file using decryption function
+decrypted_text = decrypt(encrypted_data, shift1, shift2)
+
+# save the decrypted result into a new file
+with open("decrypted_text.txt", "w") as file:
+    file.write(decrypted_text)
+
+print("Decryption completed! Check decrypted_text.txt")
