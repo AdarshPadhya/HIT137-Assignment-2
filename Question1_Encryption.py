@@ -128,6 +128,54 @@ print("Encryption completed! Check encrypted_text.txt")
 
 def decrypt(text, shift1, shift2):
 
+    # this will store the final decrypted message
     decrypted_text = ""
 
+    # go through each character one by one
     for char in text:
+
+        # check if the character is lowercase
+        if char.islower():
+
+            # if it belongs to first half (a-m)
+            if 'a' <= char <= 'm':
+                # during encryption we moved forward, so now we move backward
+                shift = shift1 * shift2
+                pos = ord(char) - ord('a')
+                pos = (pos - shift) % 26
+                new_char = chr(pos + ord('a'))
+
+            else:
+                # for second half (n-z), encryption moved backward, so now we go forward
+                shift = shift1 + shift2
+                pos = ord(char) - ord('a')
+                pos = (pos + shift) % 26
+                new_char = chr(pos + ord('a'))
+
+        # check if the character is uppercase
+        elif char.isupper():
+
+            # if in first half (A-M)
+            if 'A' <= char <= 'M':
+                # encryption moved backward, so here we move forward
+                shift = shift1
+                pos = ord(char) - ord('A')
+                pos = (pos + shift) % 26
+                new_char = chr(pos + ord('A'))
+
+            else:
+                # encryption moved forward, so now we reverse it (move backward)
+                shift = shift2 ** 2
+                pos = ord(char) - ord('A')
+                pos = (pos - shift) % 26
+                new_char = chr(pos + ord('A'))
+
+        else:
+            # if it's not a letter, just keep it as it is
+            new_char = char
+
+        # add the decrypted character to final result
+        decrypted_text += new_char
+
+    # return the full decrypted string
+    return decrypted_text
