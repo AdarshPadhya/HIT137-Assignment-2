@@ -1,32 +1,12 @@
 '''
 HIT137 - Group Assignment 2
 
-Question 1: This program reads text from a file named raw_text.txt and encrypts its contents using a custom encryption method.The encryption 
-depends on whether characters are lowercase or uppercase and their position in the alphabet. Two user inputs, shift1 and shift2, are used to 
-determine how much each character is shifted. The encrypted result is then saved in a new file called encrypted_text.txt.
-
 Group Name: DAN/EXT 26
 Group Members:
 - Adarsh Padhya - S401743
 - Aaditya Kulkarni - S403124
 - Aaron Menezes- S401432
 - Krupa Maria Salim - S398540
-
-Program Description: This Python program performs file-based text encryption using a rule-based shifting technique. It first takes two integer 
-inputs (shift1 and shift2) from the user. The program reads the content of raw_text.txt and processes each character individually.
-
-For lowercase letters:
-
-Characters from 'a' to 'm' are shifted forward by shift1 * shift2
-Characters from 'n' to 'z' are shifted backward by shift1 + shift2
-
-For uppercase letters:
-
-Characters from 'A' to 'M' are shifted backward by shift1
-Characters from 'N' to 'Z' are shifted forward by shift2²
-
-All other characters such as spaces, numbers, and symbols remain unchanged. The encrypted text is written to encrypted_text.txt. The program uses a
-function-based approach for better structure and readability.
 
 '''
 
